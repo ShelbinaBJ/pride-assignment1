@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Department Registration Form</h2>
+<form id="registrationForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <span id="nameError" style="color:red;"></span><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    <span id="emailError" style="color:red;"></span><br>
+
+    <label for="department">Department:</label><br>
+    <select id="department" name="department" required>
+        <option value="">Select Department</option>
+        <option value="hr">Human Resources</option>
+        <option value="it">Information Technology</option>
+        <option value="finance">Finance</option>
+    </select><br>
+    <span id="departmentError" style="color:red;"></span><br>
+
+    <label for="contact">Contact Number:</label><br>
+    <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required><br>
+    <span id="contactError" style="color:red;"></span><br>
+
+    <button type="button" onclick="submitForm()">Register</button>
+</form>
+
+<table id="detailsTable" style="display:none;">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Contact Number</th>
+        </tr>
+    </thead>
+    <tbody id="detailsBody"></tbody>
+</table>
+
+<script>
+    function validateForm() {
+        let isValid = true;
+
+        // Clear previous errors
+        document.getElementById('nameError').innerText = '';
+        document.getElementById('emailError').innerText = '';
+        document.getElementById('departmentError').innerText = '';
+        document.getElementById('contactError').innerText = '';
+
+        // Name validation
+        const name = document.getElementById('name').value.trim();
+        if (!name) {
+            document.getElementById('nameError').innerText = 'Name is required.';
+            isValid = false;
+        }
+
+        // Email validation
+        const email = document.getElementById('email').value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').innerText = 'Enter a valid email address.';
+            isValid = false;
+        }
+
+        // Department validation
+        const department = document.getElementById('department').value;
+        if (department === '') {
+            document.getElementById('departmentError').innerText = 'Department is required.';
+            isValid = false;
+        }
+
+        // Contact number validation
+        const contact = document.getElementById('contact').value;
+        if (!/^[0-9]{10}$/.test(contact)) {
+            document.getElementById('contactError').innerText = 'Enter a valid 10-digit contact number.';
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function submitForm() {
+        if (validateForm()) {
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const department = document.getElementById('department').value;
+            const contact = document.getElementById('contact').value;
+
+            // Create a new row in the table
+            const tableBody = document.getElementById('detailsBody');
+            const newRow = tableBody.insertRow();
+            newRow.insertCell(0).innerText = name;
+            newRow.insertCell(1).innerText = email;
+            newRow.insertCell(2).innerText = department;
+            newRow.insertCell(3).innerText = contact;
+
+            // Show the table
+            document.getElementById('detailsTable').style.display = 'table';
+
+            // Clear the form
+            document.getElementById('registrationForm').reset();
+        }
+    }
+</script>
+
+</body>
+</html>
