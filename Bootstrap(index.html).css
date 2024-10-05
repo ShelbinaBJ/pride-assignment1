@@ -1,0 +1,27 @@
+<style>
+    /* Custom styles can go here */
+    
+    @media (max-width: 768px) {
+        .navbar {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        h2 {
+            font-size: 1.25rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+        }
+    }
+</style>
